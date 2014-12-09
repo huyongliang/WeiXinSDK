@@ -1,19 +1,19 @@
 package org.lut.hyl.weixin.model.request;
 
-public class LinkMessage extends RequestMessage {
+public class RequestLinkMessage extends RequestMessage {
 	// 消息标题
-	private String title;
+	protected String title;
 	// 消息描述
-	private String description;
+	protected String description;
 	// 消息链接
-	private String url;
+	protected String url;
 
-	public LinkMessage() {
+	public RequestLinkMessage() {
 		super();
 	}
 
-	public LinkMessage(String toUserName, String fromUserName, long createTime,
-			String msgType, long msgId, String title, String description,
+	public RequestLinkMessage(String toUserName, String fromUserName, long createTime,
+			RequestMessageType msgType, long msgId, String title, String description,
 			String url) {
 		this.toUserName = toUserName;
 		this.fromUserName = fromUserName;

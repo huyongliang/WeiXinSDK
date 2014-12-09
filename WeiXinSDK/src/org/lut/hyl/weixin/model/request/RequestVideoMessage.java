@@ -1,15 +1,15 @@
 package org.lut.hyl.weixin.model.request;
 
-public class VideoMessage extends RequestMessage {
-	private String thumbMediaId;
-	private String mediaId;
+public class RequestVideoMessage extends RequestMessage {
+	protected String thumbMediaId;
+	protected String mediaId;
 
-	public VideoMessage() {
+	public RequestVideoMessage() {
 		super();
 	}
 
-	public VideoMessage(String toUserName, String fromUserName,
-			long createTime, String msgType, long msgId, String thumbMediaId,
+	public RequestVideoMessage(String toUserName, String fromUserName,
+			long createTime, RequestMessageType msgType, long msgId, String thumbMediaId,
 			String mediaId) {
 		super();
 		this.toUserName = toUserName;

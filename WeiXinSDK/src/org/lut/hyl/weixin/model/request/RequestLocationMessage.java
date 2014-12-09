@@ -1,20 +1,20 @@
 package org.lut.hyl.weixin.model.request;
 
-public class LocationMessage extends RequestMessage {
-	private String location_X;
+public class RequestLocationMessage extends RequestMessage {
+	protected String location_X;
 	// 地理位置经度
-	private String location_Y;
+	protected String location_Y;
 	// 地图缩放大小
-	private String scale;
+	protected String scale;
 	// 地理位置信息
-	private String label;
+	protected String label;
 
-	public LocationMessage() {
+	public RequestLocationMessage() {
 		super();
 	}
 
-	public LocationMessage(String toUserName, String fromUserName,
-			long createTime, String msgType, long msgId, String location_X,
+	public RequestLocationMessage(String toUserName, String fromUserName,
+			long createTime, RequestMessageType msgType, long msgId, String location_X,
 			String location_Y, String scale, String label) {
 		this.toUserName = toUserName;
 		this.fromUserName = fromUserName;

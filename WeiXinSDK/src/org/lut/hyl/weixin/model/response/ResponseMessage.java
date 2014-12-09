@@ -1,22 +1,18 @@
 package org.lut.hyl.weixin.model.response;
 
-public class ResponseMsg {
+public abstract class ResponseMessage {
 	protected String toUserName;
-	// 开发者微信号
 	protected String fromUserName;
-	// 消息创建时间 （整型）
 	protected long createTime;
-	// 消息类型（text/music/news）
-	protected String msgType;
-	// 位0x0001被标志时，星标刚收到的消息
+	protected ResponseMessageType msgType;
 	protected int funcFlag;
 
-	public ResponseMsg() {
+	public ResponseMessage() {
 		super();
 	}
 
-	public ResponseMsg(String toUserName, String fromUserName, long createTime,
-			String msgType, int funcFlag) {
+	public ResponseMessage(String toUserName, String fromUserName,
+			long createTime, ResponseMessageType msgType, int funcFlag) {
 		super();
 		this.toUserName = toUserName;
 		this.fromUserName = fromUserName;
@@ -49,11 +45,11 @@ public class ResponseMsg {
 		this.createTime = createTime;
 	}
 
-	public String getMsgType() {
+	public ResponseMessageType getMsgType() {
 		return msgType;
 	}
 
-	public void setMsgType(String msgType) {
+	public void setMsgType(ResponseMessageType msgType) {
 		this.msgType = msgType;
 	}
 
@@ -65,4 +61,34 @@ public class ResponseMsg {
 		this.funcFlag = funcFlag;
 	}
 
+	public static enum ResponseMessageType {
+		/**
+		 * 文本
+		 */
+		TEXT("text"), /**
+		 * 图片
+		 */
+		IMG("image"), /**
+		 * 语音
+		 */
+		VOICE("voice"), /**
+		 * 视频
+		 */
+		VIDEO("video"), /**
+		 * 音乐
+		 */
+		MUSIC("music"), /**
+		 * 图文
+		 */
+		NEWS("news");
+		private ResponseMessageType(String v) {
+			this.value = v;
+		}
+
+		private String value;
+
+		public String getValue() {
+			return value;
+		}
+	}
 }

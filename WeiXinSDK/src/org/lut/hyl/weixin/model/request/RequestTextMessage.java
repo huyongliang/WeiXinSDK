@@ -1,15 +1,15 @@
 package org.lut.hyl.weixin.model.request;
 
-public class TextMessage extends RequestMessage {
+public class RequestTextMessage extends RequestMessage {
 	// ÏûÏ¢ÄÚÈÝ
-	private String content;
+	protected String content;
 
-	public TextMessage() {
+	public RequestTextMessage() {
 		super();
 	}
 
-	public TextMessage(String toUserName, String fromUserName, long createTime,
-			String msgType, long msgId, String content) {
+	public RequestTextMessage(String toUserName, String fromUserName, long createTime,
+			RequestMessageType msgType, long msgId, String content) {
 		this.toUserName = toUserName;
 		this.fromUserName = fromUserName;
 		this.createTime = createTime;

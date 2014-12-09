@@ -1,18 +1,18 @@
 package org.lut.hyl.weixin.model.request;
 
-public class VoiceMessage extends RequestMessage {
+public class RequestVoiceMessage extends RequestMessage {
 	// √ΩÃÂID
-	private String mediaId;
+	protected String mediaId;
 	// ”Ô“Ù∏Ò Ω
-	private String format;
+	protected String format;
 
-	public VoiceMessage() {
+	public RequestVoiceMessage() {
 		super();
 	}
 
-	public VoiceMessage(String toUserName, String fromUserName,
-			long createTime, String msgType, long msgId, String mediaId,
-			String format) {
+	public RequestVoiceMessage(String toUserName, String fromUserName,
+			long createTime, RequestMessageType msgType, long msgId,
+			String mediaId, String format) {
 		this.toUserName = toUserName;
 		this.fromUserName = fromUserName;
 		this.createTime = createTime;

@@ -1,15 +1,15 @@
 package org.lut.hyl.weixin.model.request;
 
-public class ImageMessage extends RequestMessage {
-	private String picUrl;
-	private String mediaId;
+public class RequestImageMessage extends RequestMessage {
+	protected String picUrl;
+	protected String mediaId;
 
-	public ImageMessage() {
+	public RequestImageMessage() {
 		super();
 	}
 
-	public ImageMessage(String toUserName, String fromUserName,
-			long createTime, String msgType, long msgId, String picUrl,
+	public RequestImageMessage(String toUserName, String fromUserName,
+			long createTime, RequestMessageType msgType, long msgId, String picUrl,
 			String mediaId) {
 		this.toUserName = toUserName;
 		this.fromUserName = fromUserName;

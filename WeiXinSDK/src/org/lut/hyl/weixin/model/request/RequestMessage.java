@@ -1,6 +1,6 @@
 package org.lut.hyl.weixin.model.request;
 
-public class RequestMessage {
+public abstract class RequestMessage {
 	// 开发者微信号
 	protected String toUserName;
 	// 发送方帐号（一个OpenID）
@@ -8,7 +8,7 @@ public class RequestMessage {
 	// 消息创建时间 （整型）
 	protected long createTime;
 	// 消息类型（text/image/location/link）
-	protected String msgType;
+	protected RequestMessageType msgType;
 	// 消息id，64位整型
 	protected long msgId;
 
@@ -36,11 +36,11 @@ public class RequestMessage {
 		this.createTime = createTime;
 	}
 
-	public String getMsgType() {
+	public RequestMessageType getMsgType() {
 		return msgType;
 	}
 
-	public void setMsgType(String msgType) {
+	public void setMsgType(RequestMessageType msgType) {
 		this.msgType = msgType;
 	}
 
@@ -50,6 +50,38 @@ public class RequestMessage {
 
 	public void setMsgId(long msgId) {
 		this.msgId = msgId;
+	}
+
+	public static enum RequestMessageType {
+		/**
+		 * 文本消息
+		 */
+		TEXT("text"),
+		/**
+		 * 图片消息
+		 */
+		IMG("image"), /**
+		 * 语音消息
+		 */
+		VOICE("voice"), /**
+		 * 视频消息
+		 */
+		VIDEO("video"), /**
+		 * 位置消息
+		 */
+		LOCATION("location"), /**
+		 * 链接消息
+		 */
+		LINK("link");
+		private RequestMessageType(String v) {
+			this.value = v;
+		}
+
+		private String value;
+
+		public String getValue() {
+			return value;
+		}
 	}
 
 }
