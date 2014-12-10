@@ -39,4 +39,35 @@ public class MessageUtil {
 		}
 		return size;
 	}
+
+	/**
+	 * 微信支持的最大长度为2048bytes，此方法将字节数大于2048的后续部分去掉
+	 * 
+	 * @param content
+	 *            需要检测的字符串
+	 * @param encoding
+	 *            使用的编码类型
+	 * @param maxLengthOfBytes
+	 *            支持的最大字节长度，如2048
+	 * @return 过滤后的字符串
+	 * @throws UnsupportedEncodingException
+	 */
+	public String shrint2fit(String content, String encoding,
+			int maxLengthOfBytes) throws UnsupportedEncodingException {
+		if (content == null || "".equals(content))
+			return content;
+		int lengthPerChar = 2;
+		if ("UTF-8".equalsIgnoreCase(encoding)) {
+			lengthPerChar = 3;
+		} else if ("GBK".equalsIgnoreCase(encoding)
+				|| "gb2312".equalsIgnoreCase(encoding)) {
+			lengthPerChar = 2;
+		}
+		int l = content.getBytes(encoding).length;
+		if (l >= maxLengthOfBytes) {
+			int max = maxLengthOfBytes / lengthPerChar;
+			content = content.substring(0, max);
+		}
+		return content;
+	}
 }
