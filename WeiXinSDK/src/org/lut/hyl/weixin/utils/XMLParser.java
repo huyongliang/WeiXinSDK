@@ -25,6 +25,12 @@ import org.lut.hyl.weixin.model.request.RequestTextMessage;
 import org.lut.hyl.weixin.model.request.RequestVideoMessage;
 import org.lut.hyl.weixin.model.request.RequestVoiceMessage;
 
+/**
+ * 工具类：处理请求中的消息
+ * 
+ * @author HuYongliang
+ *
+ */
 public class XMLParser {
 	private static Map<String, Class<? extends RequestMessage>> map = new HashMap<String, Class<? extends RequestMessage>>();
 
@@ -37,6 +43,14 @@ public class XMLParser {
 		map.put(MessageUtil.REQ_MSG_VOICE, RequestVoiceMessage.class);
 	}
 
+	/**
+	 * 从request中获取xml格式的消息字符串
+	 * 
+	 * @param request
+	 *            HttpServletRequest实例
+	 * @return request中获取xml格式的消息字符串
+	 * @throws IOException
+	 */
 	public String getXMLFromRequest(HttpServletRequest request)
 			throws IOException {
 		StringBuilder sb = new StringBuilder();
@@ -53,6 +67,16 @@ public class XMLParser {
 
 	}
 
+	/**
+	 * 传入xml格式的消息字符串，返回消息类型
+	 * 
+	 * @param strXml
+	 *            消息的xml格式字符串
+	 * @return 消息类型
+	 * @throws DocumentException
+	 * @throws UnKnowMessageTypeException
+	 *             当消息字串中的msgType不在六种RequestMessage子类之列时
+	 */
 	public Class<? extends RequestMessage> getMessageType(String strXml)
 			throws DocumentException, UnKnowMessageTypeException {
 		Document document = DocumentHelper.parseText(strXml);
@@ -69,16 +93,35 @@ public class XMLParser {
 		return null;
 	}
 
+	/**
+	 * 传入某次请求的request对象，返回对应的RequestMessage的具体子类，返回后<b>根据
+	 * {@link XMLParser#getMessageType(String)}或者{@link XMLParser#getClass()}
+	 * 强制转换为具体子类即可</b>
+	 * 
+	 * @param request
+	 * @return
+	 * @throws IOException
+	 * @throws UnKnowMessageTypeException
+	 * @throws DocumentException
+	 */
 	public RequestMessage parseMessage(HttpServletRequest request)
-			throws IOException, UnKnowMessageTypeException {
+			throws IOException, UnKnowMessageTypeException, DocumentException {
 		return this.parseMessage(this.getXMLFromRequest(request));
 	}
 
+	/**
+	 * @see #parseMessage(HttpServletRequest)
+	 * @param xml
+	 * @return
+	 * @throws UnKnowMessageTypeException
+	 * @throws DocumentException
+	 * 
+	 */
 	public RequestMessage parseMessage(String xml)
-			throws UnKnowMessageTypeException {
+			throws UnKnowMessageTypeException, DocumentException {
 		RequestMessage ret = null;
+		Class<?> c = getMessageType(xml);
 		try {
-			Class<?> c = getMessageType(xml);
 			ret = (RequestMessage) c.newInstance();
 			Document document = DocumentHelper.parseText(xml);
 			// 获得文档的根节点
@@ -97,6 +140,9 @@ public class XMLParser {
 				if (field.getType().equals(Long.class)
 						|| field.getType().equals(long.class)) {
 					field.set(ret, Long.parseLong(value));
+				} else if (field.getType().equals(
+						RequestMessage.RequestMessageType.class)) {
+					// ....
 				} else if (field.getType().equals(Integer.class)
 						|| field.getType().equals(int.class)) {
 					field.set(ret, Integer.parseInt(value));
