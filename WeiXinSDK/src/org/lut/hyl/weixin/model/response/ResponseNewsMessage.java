@@ -6,6 +6,10 @@ public class ResponseNewsMessage extends ResponseMessage {
 	protected int ArticleCount;
 	// 多条图文消息信息，默认第一个item为大图
 	protected List<Article> Articles;
+	public ResponseNewsMessage(){
+		super();
+		this.msgType=ResponseMessageType.NEWS;
+	}
 
 	public int getArticleCount() {
 		return ArticleCount;

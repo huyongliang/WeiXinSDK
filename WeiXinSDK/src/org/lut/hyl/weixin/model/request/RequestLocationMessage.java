@@ -11,15 +11,16 @@ public class RequestLocationMessage extends RequestMessage {
 
 	public RequestLocationMessage() {
 		super();
+		this.msgType=RequestMessageType.LOCATION;
 	}
 
 	public RequestLocationMessage(String toUserName, String fromUserName,
-			long createTime, RequestMessageType msgType, long msgId, String location_X,
+			long createTime,   long msgId, String location_X,
 			String location_Y, String scale, String label) {
 		this.toUserName = toUserName;
 		this.fromUserName = fromUserName;
 		this.createTime = createTime;
-		this.msgType = msgType;
+		this.msgType=RequestMessageType.LOCATION;
 		this.msgId = msgId;
 
 		this.location_X = location_X;

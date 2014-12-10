@@ -6,16 +6,17 @@ public class RequestVideoMessage extends RequestMessage {
 
 	public RequestVideoMessage() {
 		super();
+		this.msgType=RequestMessageType.VIDEO;
 	}
 
 	public RequestVideoMessage(String toUserName, String fromUserName,
-			long createTime, RequestMessageType msgType, long msgId, String thumbMediaId,
+			long createTime, long msgId, String thumbMediaId,
 			String mediaId) {
 		super();
 		this.toUserName = toUserName;
 		this.fromUserName = fromUserName;
 		this.createTime = createTime;
-		this.msgType = msgType;
+		this.msgType = RequestMessageType.VIDEO;
 		this.msgId = msgId;
 		this.thumbMediaId = thumbMediaId;
 		this.mediaId = mediaId;

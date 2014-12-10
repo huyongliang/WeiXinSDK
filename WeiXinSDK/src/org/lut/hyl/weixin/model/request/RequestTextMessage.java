@@ -6,14 +6,15 @@ public class RequestTextMessage extends RequestMessage {
 
 	public RequestTextMessage() {
 		super();
+		this.msgType=RequestMessageType.TEXT;
 	}
 
 	public RequestTextMessage(String toUserName, String fromUserName, long createTime,
-			RequestMessageType msgType, long msgId, String content) {
+			long msgId, String content) {
 		this.toUserName = toUserName;
 		this.fromUserName = fromUserName;
 		this.createTime = createTime;
-		this.msgType = msgType;
+		this.msgType=RequestMessageType.TEXT;
 		this.msgId = msgId;
 		this.content = content;
 	}

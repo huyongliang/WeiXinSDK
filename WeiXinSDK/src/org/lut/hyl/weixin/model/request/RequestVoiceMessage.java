@@ -8,15 +8,15 @@ public class RequestVoiceMessage extends RequestMessage {
 
 	public RequestVoiceMessage() {
 		super();
+		this.msgType = RequestMessageType.VOICE;
 	}
 
 	public RequestVoiceMessage(String toUserName, String fromUserName,
-			long createTime, RequestMessageType msgType, long msgId,
-			String mediaId, String format) {
+			long createTime, long msgId, String mediaId, String format) {
 		this.toUserName = toUserName;
 		this.fromUserName = fromUserName;
 		this.createTime = createTime;
-		this.msgType = msgType;
+		this.msgType = RequestMessageType.VOICE;
 		this.msgId = msgId;
 		this.mediaId = mediaId;
 		this.format = format;

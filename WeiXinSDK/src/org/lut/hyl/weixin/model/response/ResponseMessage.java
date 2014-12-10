@@ -49,10 +49,6 @@ public abstract class ResponseMessage {
 		return msgType;
 	}
 
-	public void setMsgType(ResponseMessageType msgType) {
-		this.msgType = msgType;
-	}
-
 	public int getFuncFlag() {
 		return funcFlag;
 	}

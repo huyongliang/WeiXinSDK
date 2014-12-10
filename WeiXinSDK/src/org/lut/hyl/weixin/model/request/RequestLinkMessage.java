@@ -10,15 +10,16 @@ public class RequestLinkMessage extends RequestMessage {
 
 	public RequestLinkMessage() {
 		super();
+		this.msgType=RequestMessageType.LINK;
 	}
 
 	public RequestLinkMessage(String toUserName, String fromUserName, long createTime,
-			RequestMessageType msgType, long msgId, String title, String description,
+			  long msgId, String title, String description,
 			String url) {
 		this.toUserName = toUserName;
 		this.fromUserName = fromUserName;
 		this.createTime = createTime;
-		this.msgType = msgType;
+		this.msgType=RequestMessageType.LINK;
 		this.msgId = msgId;
 
 		this.title = title;

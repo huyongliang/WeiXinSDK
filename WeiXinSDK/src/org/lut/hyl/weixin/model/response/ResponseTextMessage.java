@@ -5,17 +5,18 @@ public class ResponseTextMessage extends ResponseMessage {
 
 	public ResponseTextMessage() {
 		super();
+		this.msgType = ResponseMessageType.TEXT;
 	}
 
-	public ResponseTextMessage(String toUserName, String fromUserName, long createTime,
-			ResponseMessageType msgType, int funcFlag, String content) {
+	public ResponseTextMessage(String toUserName, String fromUserName,
+			long createTime, int funcFlag, String content) {
 		super();
 		this.toUserName = toUserName;
 		this.fromUserName = fromUserName;
 		this.createTime = createTime;
-		this.msgType = msgType;
+		this.msgType = ResponseMessageType.TEXT;
 		this.funcFlag = funcFlag;
-		
+
 		this.content = content;
 	}
 

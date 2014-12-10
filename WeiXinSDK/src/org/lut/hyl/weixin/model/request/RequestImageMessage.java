@@ -6,15 +6,15 @@ public class RequestImageMessage extends RequestMessage {
 
 	public RequestImageMessage() {
 		super();
+		this.msgType = RequestMessageType.IMG;
 	}
 
 	public RequestImageMessage(String toUserName, String fromUserName,
-			long createTime, RequestMessageType msgType, long msgId, String picUrl,
-			String mediaId) {
+			long createTime, long msgId, String picUrl, String mediaId) {
 		this.toUserName = toUserName;
 		this.fromUserName = fromUserName;
 		this.createTime = createTime;
-		this.msgType = msgType;
+		this.msgType = RequestMessageType.IMG;
 		this.msgId = msgId;
 		this.picUrl = picUrl;
 		this.mediaId = mediaId;

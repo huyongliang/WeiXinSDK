@@ -40,10 +40,6 @@ public abstract class RequestMessage {
 		return msgType;
 	}
 
-	public void setMsgType(RequestMessageType msgType) {
-		this.msgType = msgType;
-	}
-
 	public long getMsgId() {
 		return msgId;
 	}
