@@ -5,8 +5,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.lut.hyl.weixin.GlobalProperties;
-
 public class MessageUtil {
 	public static final String REQ_MSG_TEXT = "text";
 	public static final String REQ_MSG_LINK = "link";

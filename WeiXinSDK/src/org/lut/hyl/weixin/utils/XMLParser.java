@@ -15,7 +15,6 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-import org.lut.hyl.weixin.GlobalProperties;
 import org.lut.hyl.weixin.exception.UnKnowMessageTypeException;
 import org.lut.hyl.weixin.model.request.RequestImageMessage;
 import org.lut.hyl.weixin.model.request.RequestLinkMessage;

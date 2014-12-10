@@ -48,6 +48,12 @@ public abstract class RequestMessage {
 		this.msgId = msgId;
 	}
 
+	/**
+	 * 请求消息对应的类型
+	 * 
+	 * @author HuYongliang
+	 *
+	 */
 	public static enum RequestMessageType {
 		/**
 		 * 文本消息

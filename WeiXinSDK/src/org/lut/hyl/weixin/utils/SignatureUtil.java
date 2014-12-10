@@ -4,8 +4,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
-import org.lut.hyl.weixin.GlobalProperties;
-
 /**
  * 签名工具类<br>
  * <a href='http://blog.csdn.net/lyq8479/article/details/8944988'>参见柳峰的博客</a>
