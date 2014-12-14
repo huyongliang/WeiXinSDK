@@ -50,13 +50,10 @@ public class RequestProcessor {
 	 */
 	public ResponseMessage doHandle(RequestMessage requestMessage) {
 		RequestMessageType type = map.get(requestMessage.getClass());
-		RequestMessageHandler h = null;
-		try {
-			h = this.provider.getHandler(type);
-		} catch (NullPointerException e) {
+		RequestMessageHandler h  = this.provider.getHandler(type);
+		if (h == null)
 			throw new NoRequestMessageHandlerException("请提供处理"
 					+ type.getValue() + "类型消息的处理器");
-		}
 		return h.doHandle(requestMessage);
 	}
 }

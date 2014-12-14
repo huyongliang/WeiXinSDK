@@ -1,6 +1,10 @@
 package org.lut.hyl.weixin.model.response;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+@XStreamAlias("xml")
 public class ResponseTextMessage extends ResponseMessage {
+	@XStreamAlias("Content")
 	protected String content;
 
 	public ResponseTextMessage() {

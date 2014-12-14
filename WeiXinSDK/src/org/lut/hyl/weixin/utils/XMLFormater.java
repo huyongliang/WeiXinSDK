@@ -1,11 +1,14 @@
 package org.lut.hyl.weixin.utils;
 
-import java.util.Date;
+import java.io.Writer;
 
 import org.lut.hyl.weixin.model.response.ResponseMessage;
-import org.lut.hyl.weixin.model.response.ResponseNewsMessage;
-import org.lut.hyl.weixin.model.response.ResponseNewsMessage.Article;
-import org.lut.hyl.weixin.model.response.ResponseTextMessage;
+
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.core.util.QuickWriter;
+import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
+import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
+import com.thoughtworks.xstream.io.xml.XppDriver;
 
 /**
  * 工具类：将ResponseMessage根据{@link ResponseMessage#getMsgType()}转换为对应的xml格式字符串
@@ -14,90 +17,48 @@ import org.lut.hyl.weixin.model.response.ResponseTextMessage;
  *
  */
 public class XMLFormater {
-	private String getCommonTags(ResponseMessage baseMsg,
-			boolean alredyReverseFromAnTo) {
-		StringBuffer sb = new StringBuffer();
-		Date date = new Date();
-		String from = alredyReverseFromAnTo ? baseMsg.getFromUserName()
-				: baseMsg.getToUserName();
-		String to = alredyReverseFromAnTo ? baseMsg.getToUserName() : baseMsg
-				.getFromUserName();
-		sb.append("<ToUserName><![CDATA[");
-		sb.append(to);
-		sb.append("]]></ToUserName>\n<FromUserName><![CDATA[");
-		sb.append(from);
-		sb.append("]]></FromUserName>\n<CreateTime>");
-		sb.append(date.getTime());
-		sb.append("</CreateTime>\n");
-		return sb.toString();
-	}
+	protected static String PREFIX_CDATA = "<![CDATA[";
+	protected static String SUFFIX_CDATA = "]]>";
+	private XStream xstream = new XStream(new XppDriver() {
+		public HierarchicalStreamWriter createWriter(Writer out) {
+			return new PrettyPrintWriter(out) {
+				boolean cdata = true;
+
+				public void startNode(String name,
+						@SuppressWarnings("rawtypes") Class clazz) {
+					super.startNode(name, clazz);
+				}
+
+				protected void writeText(QuickWriter writer, String text) {
+					if (cdata) {
+						writer.write(PREFIX_CDATA);
+						writer.write(text);
+						writer.write(SUFFIX_CDATA);
+					} else {
+						writer.write(text);
+					}
+				}
+			};
+		}
+	});
 
 	public String format(ResponseMessage baseMsg, boolean alredyReverseFromAnTo)
 			throws UnsupportedOperationException {
-		StringBuffer sb = new StringBuffer("<xml>\n");
-		sb.append(this.getCommonTags(baseMsg, alredyReverseFromAnTo));
-		String special = this.getSpecialTags(baseMsg);
-		if (special == null)
-			throw new UnsupportedOperationException("暂不支持的操作,消息类型："
-					+ baseMsg.getMsgType());
-		sb.append(this.getSpecialTags(baseMsg));
-		sb.append("<FuncFlag>0</FuncFlag>\n</xml>");
-		return sb.toString();
-	}
-
-	private String getSpecialTags(ResponseMessage responseMsg) {
-		StringBuilder sb = new StringBuilder();
-		switch (responseMsg.getMsgType()) {
-		case TEXT: {
-			ResponseTextMessage msg = (ResponseTextMessage) responseMsg;
-			sb.append("<MsgType><![CDATA[text]]></MsgType>\n");
-			sb.append("<Content><![CDATA[" + msg.getContent() + "]]></Content>\n");
-			break;
-		}
-		case NEWS: {
-			ResponseNewsMessage msg = (ResponseNewsMessage) responseMsg;
-			sb.append("<MsgType><![CDATA[news]]></MsgType>");
-			sb.append("<ArticleCount>" + msg.getArticleCount()
-					+ "</ArticleCount>");
-			sb.append("<Articles>");
-			for (Article a : msg.getArticles()) {
-				sb.append("<item>");
-				sb.append("<Title><![CDATA[" + a.getTitle() + "]]></Title> ");
-				sb.append("<Description><![CDATA[" + a.getDescription()
-						+ "]]></Description>");
-				sb.append("<PicUrl><![CDATA[" + a.getPicUrl() + "]]></PicUrl>");
-				sb.append("<Url><![CDATA[" + a.getUrl() + "]]></Url>");
-				sb.append("</item>");
-			}
-			sb.append("</Articles>");
-			break;
-		}
-		default:
-			return null;
-		}
-
-		return sb.toString();
+		if (alredyReverseFromAnTo)
+			return this.toXml(baseMsg);
+		String f = baseMsg.getFromUserName();
+		baseMsg.setFromUserName(baseMsg.getToUserName());
+		baseMsg.setToUserName(f);
+		return this.toXml(baseMsg);
 	}
 
 	public String format(ResponseMessage baseMsg)
 			throws UnsupportedOperationException {
 		return this.format(baseMsg, true);
 	}
-	/*
-	 * if (responseMsg instanceof ResponseTextMessage) { ResponseTextMessage msg
-	 * = (ResponseTextMessage) responseMsg;
-	 * sb.append("<MsgType><![CDATA[text]]></MsgType>");
-	 * sb.append("<Content><![CDATA[" + msg.getContent() + "]]></Content>"); }
-	 * else if (responseMsg instanceof ResponseNewsMessage) {
-	 * ResponseNewsMessage msg = (ResponseNewsMessage) responseMsg;
-	 * sb.append("<MsgType><![CDATA[news]]></MsgType>");
-	 * sb.append("<ArticleCount>" + msg.getArticleCount() + "</ArticleCount>");
-	 * sb.append("<Articles>"); for (Article a : msg.getArticles()) {
-	 * sb.append("<item>"); sb.append("<Title><![CDATA[" + a.getTitle() +
-	 * "]]></Title> "); sb.append("<Description><![CDATA[" + a.getDescription()
-	 * + "]]></Description>"); sb.append("<PicUrl><![CDATA[" + a.getPicUrl() +
-	 * "]]></PicUrl>"); sb.append("<Url><![CDATA[" + a.getUrl() + "]]></Url>");
-	 * sb.append("</item>"); } sb.append("</Articles>"); }
-	 */
 
+	private String toXml(Object obj) {
+		xstream.processAnnotations(obj.getClass()); // 通过注解方式的，一定要有这句话
+		return xstream.toXML(obj);
+	}
 }

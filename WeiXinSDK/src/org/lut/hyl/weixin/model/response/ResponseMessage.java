@@ -1,10 +1,22 @@
 package org.lut.hyl.weixin.model.response;
 
+import org.lut.hyl.weixin.model.request.MessageTypeConverter;
+
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamConverter;
+
 public abstract class ResponseMessage {
+	@XStreamAlias("ToUserName")
 	protected String toUserName;
+	@XStreamAlias("FromUserName")
 	protected String fromUserName;
+	@XStreamAlias("CreateTime")
 	protected long createTime;
+	
+	@XStreamAlias("MsgType")
+	@XStreamConverter(value = MessageTypeConverter.class)
 	protected ResponseMessageType msgType;
+	@XStreamAlias("FuncFlag")
 	protected int funcFlag;
 
 	public ResponseMessage() {

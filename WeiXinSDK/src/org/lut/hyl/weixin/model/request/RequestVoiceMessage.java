@@ -11,6 +11,9 @@ public class RequestVoiceMessage extends RequestMessage {
 	@XStreamAlias("Format")
 	protected String format;
 
+	@XStreamAlias("Recognition")
+	protected String recognition;
+
 	public RequestVoiceMessage() {
 		super();
 		this.msgType = RequestMessageType.VOICE;
@@ -43,12 +46,18 @@ public class RequestVoiceMessage extends RequestMessage {
 		this.format = format;
 	}
 
+	public String getRecognition() {
+		return recognition;
+	}
+
+	public void setRecognition(String recognition) {
+		this.recognition = recognition;
+	}
+
 	@Override
 	public String toString() {
-		return "VoiceMessage [mediaId=" + mediaId + ", format=" + format
-				+ ", toUserName=" + toUserName + ", fromUserName="
-				+ fromUserName + ", createTime=" + createTime + ", msgType="
-				+ msgType + ", msgId=" + msgId + "]";
+		return "RequestVoiceMessage [mediaId=" + mediaId + ", format=" + format
+				+ ", recognition=" + recognition + "]";
 	}
 
 }

@@ -2,13 +2,17 @@ package org.lut.hyl.weixin.model.response;
 
 import java.util.List;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+@XStreamAlias("xml")
 public class ResponseNewsMessage extends ResponseMessage {
 	protected int ArticleCount;
 	// 多条图文消息信息，默认第一个item为大图
 	protected List<Article> Articles;
-	public ResponseNewsMessage(){
+
+	public ResponseNewsMessage() {
 		super();
-		this.msgType=ResponseMessageType.NEWS;
+		this.msgType = ResponseMessageType.NEWS;
 	}
 
 	public int getArticleCount() {
@@ -27,15 +31,32 @@ public class ResponseNewsMessage extends ResponseMessage {
 		Articles = articles;
 	}
 
+	@XStreamAlias("item")
 	public static class Article {
 		// 图文消息名称
+		@XStreamAlias("Title")
 		private String title;
 		// 图文消息描述
 		private String description;
 		// 图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80，限制图片链接的域名需要与开发者填写的基本资料中的Url一致
+		@XStreamAlias("PicUrl")
 		private String picUrl;
 		// 点击图文消息跳转链接
+		@XStreamAlias("Url")
 		private String url;
+
+		public Article() {
+			super();
+		}
+
+		public Article(String title, String description, String picUrl,
+				String url) {
+			super();
+			this.title = title;
+			this.description = description;
+			this.picUrl = picUrl;
+			this.url = url;
+		}
 
 		public String getTitle() {
 			return title;

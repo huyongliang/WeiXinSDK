@@ -1,11 +1,15 @@
 package org.lut.hyl.weixin.model.response;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+@XStreamAlias("xml")
 public class ResponseMusicMessage extends ResponseMessage {
 	public ResponseMusicMessage() {
 		super();
 		this.msgType = ResponseMessageType.MUSIC;
 	}
 
+	@XStreamAlias("Music")
 	private Music music;
 
 	public Music getMusic() {
@@ -16,6 +20,7 @@ public class ResponseMusicMessage extends ResponseMessage {
 		this.music = music;
 	}
 
+	@XStreamAlias("Music")
 	public static class Music {
 		// “Ù¿÷√˚≥∆
 		private String Title;

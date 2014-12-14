@@ -2,6 +2,7 @@ package org.lut.hyl.weixin.example;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,7 +38,7 @@ public class DefaultCoreService {
 	}
 
 	public void service() throws IOException, UnKnowMessageTypeException,
-			DocumentException {
+			DocumentException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException {
 		request.setCharacterEncoding(GlobalProperties.CHARACTER_ENCODING);
 		response.setCharacterEncoding(GlobalProperties.CHARACTER_ENCODING);
 		String signature = request.getParameter("signature");
