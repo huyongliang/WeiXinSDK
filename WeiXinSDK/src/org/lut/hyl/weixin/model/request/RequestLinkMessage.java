@@ -1,11 +1,17 @@
 package org.lut.hyl.weixin.model.request;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+@XStreamAlias("xml")
 public class RequestLinkMessage extends RequestMessage {
 	// 消息标题
+	@XStreamAlias("Title")
 	protected String title;
 	// 消息描述
+	@XStreamAlias("Description")
 	protected String description;
 	// 消息链接
+	@XStreamAlias("Url")
 	protected String url;
 
 	public RequestLinkMessage() {

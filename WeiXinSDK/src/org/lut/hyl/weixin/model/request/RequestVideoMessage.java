@@ -1,7 +1,12 @@
 package org.lut.hyl.weixin.model.request;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+@XStreamAlias("xml")
 public class RequestVideoMessage extends RequestMessage {
+	@XStreamAlias("ThumbMediaId")
 	protected String thumbMediaId;
+	@XStreamAlias("MediaId")
 	protected String mediaId;
 
 	public RequestVideoMessage() {

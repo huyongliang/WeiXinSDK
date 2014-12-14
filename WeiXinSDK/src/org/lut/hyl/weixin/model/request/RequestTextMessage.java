@@ -1,7 +1,11 @@
 package org.lut.hyl.weixin.model.request;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+@XStreamAlias("xml")
 public class RequestTextMessage extends RequestMessage {
 	// ÏûÏ¢ÄÚÈİ
+	@XStreamAlias("Content")
 	protected String content;
 
 	public RequestTextMessage() {

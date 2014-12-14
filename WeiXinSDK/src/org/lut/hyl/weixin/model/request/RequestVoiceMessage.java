@@ -1,9 +1,14 @@
 package org.lut.hyl.weixin.model.request;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+@XStreamAlias("xml")
 public class RequestVoiceMessage extends RequestMessage {
 	// √ΩÃÂID
+	@XStreamAlias("MediaId")
 	protected String mediaId;
 	// ”Ô“Ù∏Ò Ω
+	@XStreamAlias("Format")
 	protected String format;
 
 	public RequestVoiceMessage() {

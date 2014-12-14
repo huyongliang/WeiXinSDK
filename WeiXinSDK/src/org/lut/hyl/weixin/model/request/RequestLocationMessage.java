@@ -1,12 +1,19 @@
 package org.lut.hyl.weixin.model.request;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+@XStreamAlias("xml")
 public class RequestLocationMessage extends RequestMessage {
+	@XStreamAlias("Location_X")
 	protected String location_X;
 	// 地理位置经度
+	@XStreamAlias("Location_Y")
 	protected String location_Y;
 	// 地图缩放大小
+	@XStreamAlias("Scale")
 	protected String scale;
 	// 地理位置信息
+	@XStreamAlias("Label")
 	protected String label;
 
 	public RequestLocationMessage() {

@@ -1,7 +1,14 @@
 package org.lut.hyl.weixin.model.request;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+@XStreamAlias("xml")
 public class RequestImageMessage extends RequestMessage {
+	@XStreamAlias("PicUrl")
 	protected String picUrl;
+
+	@XStreamAlias("m"
+			+ "MediaId")
 	protected String mediaId;
 
 	public RequestImageMessage() {

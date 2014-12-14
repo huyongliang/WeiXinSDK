@@ -1,15 +1,23 @@
 package org.lut.hyl.weixin.model.request;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamConverter;
+
 public abstract class RequestMessage {
-	// 开发者微信号
+	@XStreamAlias("ToUserName")
 	protected String toUserName;
-	// 发送方帐号（一个OpenID）
+
+	@XStreamAlias("FromUserName")
 	protected String fromUserName;
-	// 消息创建时间 （整型）
-	protected long createTime;
-	// 消息类型（text/image/location/link）
+
+	@XStreamAlias("CreateTime")
+	protected Long createTime;
+
+	@XStreamAlias(value = "MsgType")
+	@XStreamConverter(value = MessageTypeConverter.class)
 	protected RequestMessageType msgType;
-	// 消息id，64位整型
+
+	@XStreamAlias("MsgId")
 	protected long msgId;
 
 	public String getToUserName() {
@@ -28,11 +36,11 @@ public abstract class RequestMessage {
 		this.fromUserName = fromUserName;
 	}
 
-	public long getCreateTime() {
+	public Long getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(long createTime) {
+	public void setCreateTime(Long createTime) {
 		this.createTime = createTime;
 	}
 
@@ -83,6 +91,20 @@ public abstract class RequestMessage {
 
 		public String getValue() {
 			return value;
+		}
+
+		public static RequestMessageType toEnum(String str) {
+			try {
+				return Enum.valueOf(RequestMessageType.class, str);
+			} catch (Exception ex) {
+				for (RequestMessageType period : RequestMessageType.values()) {
+					if (period.getValue().equalsIgnoreCase(str)) {
+						return period;
+					}
+				}
+				throw new IllegalArgumentException("Cannot convert <" + str
+						+ "> to TimePeriod enum");
+			}
 		}
 	}
 
